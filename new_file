@@ -1,0 +1,36 @@
+				"tabBar": {
+					     "color": "#7A7E83",
+						"selectedColor": "#007AFF",
+						"borderStyle": "black",
+						"backgroundColor": "#F8F8F8",
+						"list": [
+							{
+								"pagePath": "pages/index/index",
+								"text": "%index.home%",
+								"iconPath": "static/appicon/首页.png",
+								"selectedIconPath": "static/appicon/首页选择.png"
+					
+							},
+							{
+								"pagePath": "pages/OrderOfGood/OrderOfGood",
+								"text": "%index.ofg%",
+								"iconPath": "static/appicon/点餐.png",
+								"selectedIconPath": "static/appicon/点餐选择.png"
+					
+							},
+							{
+								"pagePath": "pages/of/of",
+								"text": "%index.of%",
+								"iconPath": "static/appicon/订单.png",
+								"selectedIconPath": "static/appicon/订单选择.png"
+					
+							},
+							{
+								"pagePath": "pages/me/me",
+								"text": "%index.me%",
+								"iconPath": "static/appicon/我的.png",
+								"selectedIconPath": "static/appicon/我的选择.png"
+					
+							}
+						]
+					}
