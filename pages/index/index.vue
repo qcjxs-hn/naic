@@ -26,7 +26,7 @@
 						<view class="yhxxlzhandbq">
 							<u-grid :col="2" >
 								<u-grid-item>
-							<u--text class="yhxxlzhandbqdh"   :size="20" :text="dl.user"></u--text>
+							<u--text   :size="20" :text="xsncoruser()"></u--text>
 							</u-grid-item>
 							<u-grid-item style="width: 100px;height: 10px;">
 							
@@ -101,10 +101,17 @@
 	
 		</uni-section>
 		<view>
-			<u-popup :show="show" mode="center"   @open="open">
-			        <view style="width: 300px;height: 200px;">
-			            <Login></Login>
-			        </view>
+			<u-popup :show="show" mode="center"  :round="10"   @open="open">
+				
+			       <view style="width: 300px;height: 200px;" >
+					   <view style="width: 100%;">
+						    <u-avatar :src="wxtb" size="120" customStyle="margin-left: 40%;margin-top:10%;"></u-avatar>
+					   </view>
+					   <view style="width: 100%;">
+			            <Login style="width: 80%;margin-left: 5%;"></Login>
+						</view>
+					</view>
+			       
 				</u-popup>
 		</view>
 	</view>
@@ -118,6 +125,7 @@
 	export default {
 		data() {
 			return {
+				wxtb:this.$tpurl+'微信.png',
 				title: 'Hello',
 				background: ['color1', 'color2', 'color3'],
 				show:true,
@@ -188,6 +196,23 @@
 					this.getuser(this.dl.user);
 				}
 		},
+		onHide() {
+			 	// console.log("jsq");
+		 	clearInterval(this.jsq)
+		 },
+		 onShow() {
+		 	//3秒钟刷新一次订单
+		 	this.jsq = setInterval(() => {
+		 		this.jsqtj();
+		 	}, 1000);
+		 },
+		mounted() {
+			//3秒钟刷新一次订单
+			// this.jsq = setInterval(() => {
+			// 	this.jsqtj();
+			// }, 3000);
+		
+		},
 		methods: {
 			changeIndicatorDots(e) {
 				this.indicatorDots = !this.indicatorDots
@@ -203,6 +228,10 @@
 			},
 			open() {
 				
+			},
+			//显示昵称或者用户名
+			xsncoruser(){
+				return this.dl.nickname===""?this.dl.user:this.dl.nickname;
 			},
 			// 加载展播栏
 			loadzbl(){
@@ -222,7 +251,7 @@
 			getuser(u){
 				this.$request.get("/user/cx?u="+u).then((res)=>{
 					if(res.code==200){
-						console.log(res);
+						// console.log(res);
 						this.dl=res.data.data
 						if(this.dl.user!=null){
 						this.dl.user=this.dl.user.substr(0,3)+'*******'+this.dl.user.substr(9,11)
@@ -233,6 +262,7 @@
 					}
 				})
 			},
+			//跳转点餐
 			tzdc(czid){
 				if(czid===0){
 				uni.switchTab({
@@ -245,6 +275,16 @@
 						// url:'../ddjsym/ddjsym'
 					})
 				}
+			},
+			//计时器内部条件
+			jsqtj(){
+				// console.log("11");
+			if(uni.getStorageSync('userxx')){
+				this.dl=uni.getStorageSync('userxx');
+				// this.getuser(this.dl.user);
+			}else{
+				uni.reLaunch({ url: '../index/index' })
+			}
 			}
 			// close() {
 			// 	this.show=false;

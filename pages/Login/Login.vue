@@ -1,10 +1,10 @@
 <template>
-  <view class="wx-login">
-
+  <view style="width: 90%;margin-left: 5%;margin-top: 5%;">
+	
     <u-button type="primary" text="微信用户一键登录" open-type="getPhoneNumber" :plain="true" @getphonenumber="getUserPhoneNumber"></u-button>
+  
   </view>
 </template>
-
 <script>
   import { mapActions } from 'vuex'
   export default {
@@ -79,17 +79,6 @@
   }
 </script>
 
-<style lang="less" scoped>
-  .wx-login {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 0 32rpx 60rpx;
-
-    button {
-      font-size: 28rpx;
-      font-weight: 400;
-    }
-  }
+<style >
+ 
 </style>

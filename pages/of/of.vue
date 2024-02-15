@@ -53,13 +53,15 @@
 					uni.reLaunch({ url: '../index/index' })
 				}
 		},
-		 
-
+		 onHide() {
+			 	// console.log("jsq");
+		 	clearInterval(this.jsq)
+		 },
 		mounted() {
 			//3秒钟刷新一次订单
-			// this.jsq = setInterval(() => {
-			// 	this.jsqtj();
-			// }, 3000);
+			this.jsq = setInterval(() => {
+				this.jsqtj();
+			}, 3000);
 		
 		},
 		methods: {
@@ -108,12 +110,7 @@
 						
 						// console.log(res);
 					}
-				}).then(() => {
-					// 在请求完成后设置下一个定时器
-					this.jsqtick = setTimeout(() => {
-						this.jsqtj();
-					}, 3000);
-				});
+				})
 			},
 			sectionChange(index){
 				this.curNow=index;
@@ -134,10 +131,11 @@
 			},
 			//计时器内部条件
 			jsqtj(){
+				
 				if(uni.getStorageSync('userxx')){
 					// this.dl=uni.getStorageSync('userxx');
 					// this.getuser(this.dl.user);
-								console.log("1111111");
+								// console.log("1111111");
 					this.loadncdd();
 								
 				}else{

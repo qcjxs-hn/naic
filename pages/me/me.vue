@@ -16,7 +16,7 @@
 					</u-grid-item>
 					<u-grid-item>
 					<view class="yhxxlzh">
-						<u--text style="z-index: 999;" :size="15" :format="encrypt" :text="dl.user"></u--text>
+						<u--text style="z-index: 999;" :size="15" :format="encrypt" :text="xsncoruser()"></u--text>
 						<view class="jyzys">
 							<u--text style="z-index: 999;" :size="10" text="经验值"></u--text>
 							<u-line-progress style="width: auto" :percentage="dl.userjyz" activeColor="#ff0000" height="12"></u-line-progress>
@@ -117,6 +117,7 @@
 				swiperhe: '200px',
 				zxswiperhe: '100px',
 				txsrc:this.$tpurl+'mrtx.png',
+				user:'',
 				dl: [{
 					user: '151******52', //默认
 					password: '',
@@ -177,14 +178,40 @@
 				}
 				
 		},
+		onHide() {
+			 	// console.log("jsq");
+		 	clearInterval(this.jsq)
+		 },
+		  onShow() {
+		     // 在页面显示时执行操作
+		     // console.log('当前页面显示了');
+			 //3秒钟刷新一次订单
+			 this.jsq = setInterval(() => {
+			 	this.jsqtj();
+			 }, 1000);
+		     // 可以在这里执行你想要执行的逻辑
+		   },
+		mounted() {
+			//3秒钟刷新一次订单
+			this.jsq = setInterval(() => {
+				this.jsqtj();
+			}, 1000);
+		
+		},
 		methods: {
+			//显示昵称或者用户名
+			xsncoruser(){
+				return this.dl.nickname===""?this.dl.user:this.dl.nickname;
+			},
 			//获取个人信息
 			getuser(u){
 				this.$request.get("/user/cx?u="+u).then((res)=>{
 					if(res.code==200){
 						console.log(res);
 						this.dl=res.data.data
+						
 						if(this.dl.user!=null){
+							this.user=this.dl.user;
 						this.dl.user=this.dl.user.substr(0,3)+'*******'+this.dl.user.substr(9,11)
 						}
 						this.gl[0].bt=this.dl.dkb.split(";").length-1;
@@ -196,8 +223,18 @@
 			//跳转个人信息
 			skipgrxx(){
 				uni.navigateTo({
-					url:`/pages/grxx/grxx?u=${this.dl.user}`
+					url:`/pages/grxx/grxx?u=${this.user}`
 				});
+			},
+			//计时器内部条件
+			jsqtj(){
+				// console.log("1111");
+			if(uni.getStorageSync('userxx')){
+				this.dl=uni.getStorageSync('userxx');
+				// this.getuser(this.dl.user);
+			}else{
+				uni.reLaunch({ url: '../index/index' })
+			}
 			}
 		}
 	}
@@ -239,7 +276,7 @@ width: 100%;
 
 	/* 经验值样式 */
 	.jyzys {
-		margin-top: -3%;
+		margin-top: -15%;
 		margin-left: 1%;
 		width: 100%;
 	}
