@@ -11,7 +11,7 @@
 			:hairline="false"></u-button>
 		<!-- 展示栏 -->
 		<view class="uni-margin-wrap">
-			<u-swiper :list="list3" indicator indicatorMode="line" circular :autoplay="autoplaymode" :radius="20"
+			<u-swiper :list="list3" indicator indicatorMode="line" circular :autoplay="autoplaymode" :radius="20" @click="czlx()"
 				:height="swiperhe" :imgMode="aspectFill"></u-swiper>
 		</view>
 		<!-- 用户栏 -->

@@ -189,7 +189,7 @@
 			 this.jsq = setInterval(() => {
 			 	this.jsqtj();
 			 }, 1000);
-		     // 可以在这里执行你想要执行的逻辑
+		     
 		   },
 		mounted() {
 			//3秒钟刷新一次订单
